@@ -1,0 +1,50 @@
+<ui:composition template="/predlozak.xhtml"
+    xmlns:ui="jakarta.faces.facelets" xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+    <ui:define name="title">Zadaća 3 - Početak Partner</ui:define>
+
+    <ui:define name="content">
+        <div class="nav-section">
+            <h3>Javni dio</h3>
+            <ul>
+                <li><h:link outcome="/provjeraStatus.xhtml" value="Provjera poslužitelja" /></li>
+                <li><h:link outcome="/registracija.xhtml" value="Registracija korisnika" /></li>
+            </ul>
+        </div>
+
+        <ui:fragment rendered="#{prijavaKorisnika.prijavljen and prijavaKorisnika.partnerOdabran}">
+            <div class="nav-section">
+                <h3>Privatni dio</h3>
+                <ul>
+                    <li><h:link outcome="/privatno/jelovnik.xhtml" value="Jelovnik" /></li>
+                    <li><h:link outcome="/privatno/kartapica.xhtml" value="Karta pića" /></li>
+                    <li><h:link outcome="/privatno/narudzba.xhtml" value="Narudžba" /></li>
+                </ul>
+            </div>
+        </ui:fragment>
+
+        <ui:fragment rendered="#{prijavaKorisnika.prijavljen and prijavaKorisnika.partnerOdabran}">
+            <div class="nav-section admin-section">
+                <h3>Admin dio</h3>
+                <ul>
+                    <li><h:link outcome="/admin/nadzornaKonzolaPartnera.xhtml" value="Nadzorna konzola partnera/restorana" /></li>
+                    <li><h:link outcome="/admin/spavanje.xhtml" value="Spavanje" /></li>
+                    <li><h:link outcome="/admin/korisnici.xhtml" value="Pregled korisnika" /></li>
+                    <li><h:link outcome="/admin/korisniciRest.xhtml" value="Pregled korisnika (REST)" /></li>
+                    <li><h:link outcome="/admin/obracuni.xhtml" value="Pregled obračuna" /></li>
+                    <li><h:link outcome="/admin/zapisi.xhtml" value="Pregled zapisa rada" /></li>
+                </ul>
+            </div>
+        </ui:fragment>
+
+        <ui:fragment rendered="#{!prijavaKorisnika.partnerOdabran}">
+            <div class="warning-message">
+                <p>Da biste pristupili nekim privatnim dijelovima, prvo morate odabrati partnera.</p>
+                <h:link outcome="/privatno/odabirPartnera.xhtml" value="Odaberi partnera" />
+            </div>
+        </ui:fragment>
+    </ui:define>
+
+    <ui:define name="nav"></ui:define>
+</ui:composition>

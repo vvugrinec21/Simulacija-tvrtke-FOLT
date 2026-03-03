@@ -1,0 +1,284 @@
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FBE9D0;
+    margin: 20px;
+    color: #333;
+}
+
+h1 {
+    color: #2c3e50;
+    border-bottom: 3px solid #2980b9;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+th {
+    background-color: #2980b9;
+    color: white;
+    font-weight: bold;
+    padding: 12px 15px;
+    text-align: center;
+}
+
+td {
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    vertical-align: middle;
+}
+
+
+.desno {
+    text-align: right;
+}
+
+a {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.detail-table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.detail-table th, .detail-table td {
+    border: 1px solid #ccc;
+    padding: 12px 15px;
+    vertical-align: top;
+}
+
+.detail-table th {
+    background-color: #eaeaea;
+    color: #333;
+    width: 25%;
+    text-align: left;
+    font-weight: 600;
+}
+
+.detail-table td {
+    width: 75%;
+    color: #555;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    form {
+        padding: 15px 20px;
+        max-width: 100%;
+    }
+}
+
+
+form {
+    background-color: #ffffff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+form label {
+    display: block; 
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="datetime-local"],
+form input[type="password"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus,
+form input[type="datetime-local"]:focus,
+form input[type="password"]:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+
+form input[type="datetime-local"]:focus,
+form input[type="number"]:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-weight: 700;
+    padding: 0 8px;
+    color: #2980b9;
+}
+
+input[type="radio"] {
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+input[type="submit"] {
+    background-color: #2980b9;
+    border: none;
+    padding: 12px 25px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #1f618d;
+}
+
+
+form.no-global-style {
+    background: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    max-width: none !important;
+    margin-bottom: 0 !important;
+    font-size: inherit !important;
+}
+
+ul {
+        list-style-type: none;
+        padding-left: 0;
+        max-width: 400px;
+        margin: 20px 0;
+        font-family: Arial, sans-serif;
+    }
+
+    ul li {
+        background: #f0f8ff;
+        margin-bottom: 10px;
+        padding: 12px 15px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        font-size: 1.1rem;
+        color: #333;
+    }
+
+.registracija-form {
+    max-width: 500px !important;
+    background-color: #ffffff !important;
+    padding: 25px 30px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+    margin: 20px auto !important;
+    font-size: 1rem !important;
+    font-family: Arial, sans-serif !important;
+}
+
+.registracija-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 2fr !important;
+    gap: 12px 20px !important;
+    align-items: center !important;
+}
+
+.form-row {
+    display: contents !important; 
+}
+
+.registracija-form label,
+.registracija-form label[for] {
+    font-weight: 600 !important;
+    color: #2c3e50 !important;
+}
+
+.registracija-form input[type="text"],
+.registracija-form input[type="password"],
+.registracija-form input[type="email"] {
+    width: 100% !important;
+    padding: 8px 10px !important;
+    border: 1px solid #bbb !important;
+    border-radius: 4px !important;
+    font-size: 1rem !important;
+    box-sizing: border-box !important;
+    color: #333 !important;
+}
+
+.btn-submit {
+    margin-top: 20px !important;
+    background-color: #2980b9 !important;
+    color: white !important;
+    padding: 12px 25px !important;
+    border-radius: 5px !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-weight: 600 !important;
+    display: block !important;
+}
+
+.btn-submit:hover {
+    background-color: #1f618d !important;
+}
+.error-message {
+    color: #d9534f !important; 
+    font-size: 0.9rem !important;
+    margin-top: 3px !important;
+    display: block !important;
+}
+
+.poruka-registracija {
+    margin-top: 15px !important;
+    font-weight: 600 !important;
+    color: #2980b9 !important; 
+    display: block !important;
+    text-align: center !important;
+}
+  
+    

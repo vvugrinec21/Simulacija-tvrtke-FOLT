@@ -1,0 +1,61 @@
+<ui:composition template="/predlozak.xhtml"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+    <ui:define name="title">Pregled rada korisnika</ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <h2>Filter zapisa rada</h2>
+            <h:panelGrid columns="2" cellpadding="5">
+
+                <h:outputLabel for="korime" value="Korisničko ime:" />
+                <h:inputText id="korime" value="#{pregledRada.korisnickoIme}" required="true" />
+
+                <h:outputLabel for="od" value="Datum od (nije obavezno):" />
+                <h:inputText id="od" value="#{pregledRada.datumOd}">
+                    <f:convertDateTime pattern="yyyy-MM-dd'T'HH:mm" />
+                    <f:passThroughAttribute name="type" value="datetime-local" />
+                </h:inputText>
+
+                <h:outputLabel for="do" value="Datum do (nije obavezno):" />
+                <h:inputText id="do" value="#{pregledRada.datumDo}">
+                    <f:convertDateTime pattern="yyyy-MM-dd'T'HH:mm" />
+                    <f:passThroughAttribute name="type" value="datetime-local" />
+                </h:inputText>
+
+                <h:outputText />
+                <h:commandButton value="Prikaži zapise" action="#{pregledRada.ucitajZapise}" />
+            </h:panelGrid>
+
+            <h:panelGroup rendered="#{not empty pregledRada.zapisi}">
+                <h2>Zapisani rad korisnika</h2>
+                <h:dataTable value="#{pregledRada.zapisi}" var="z" border="1">
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        #{z.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Vrijeme</f:facet>
+                        <h:outputText value="#{z.vrijeme}">
+                            <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">IP računala</f:facet>
+                        #{z.ipadresaracunala}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Adresa računala</f:facet>
+                        #{z.adresaracunala}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Opis rada</f:facet>
+                        #{z.opisrada}
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>

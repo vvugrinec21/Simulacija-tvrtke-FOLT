@@ -1,0 +1,40 @@
+<ui:composition template="/predlozak.xhtml"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+    <ui:define name="title">REST korisnici</ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <h:dataTable value="#{pregledRestKorisnika.korisnici}" var="k" border="1"
+                         rendered="#{not empty pregledRestKorisnika.korisnici}">
+                <h:column>
+                    <f:facet name="header">Korisničko ime</f:facet>
+                    #{pregledRestKorisnika.korisnickoIme(k)}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Lozinka</f:facet>
+                    #{pregledRestKorisnika.lozinka(k)}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Ime</f:facet>
+                    #{pregledRestKorisnika.ime(k)}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Prezime</f:facet>
+                    #{pregledRestKorisnika.prezime(k)}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email</f:facet>
+                    #{pregledRestKorisnika.email(k)}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Detalji</f:facet>
+                    <h:commandLink value="Detalji"
+                                   action="#{pregledRestKorisnika.odaberiKorisnika(pregledRestKorisnika.korisnickoIme(k))}" />
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

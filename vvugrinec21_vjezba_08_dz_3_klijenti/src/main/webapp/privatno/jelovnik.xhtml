@@ -1,0 +1,50 @@
+<ui:composition template="/predlozak.xhtml"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+    <ui:define name="title">Jelovnik</ui:define>
+
+    <ui:define name="content">
+        <h:panelGroup rendered="#{!prijavaKorisnika.partnerOdabran}">
+            <h:outputText value="Niste odabrali partnera."
+                          style="color:red; font-weight:bold; font-size:18px;" />
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{prijavaKorisnika.partnerOdabran}">
+            <h2 style="margin-top: 20px; font-size: 24px;">Jelovnik</h2>
+
+            <h:dataTable value="#{jelovnikPregled.jelovnik}" var="jelo"
+                         border="1"
+                         style="width: 100%; font-size: 20px; border-collapse: collapse; table-layout: auto;"
+                         headerClass="table-header" rowClasses="table-row">
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID" />
+                    </f:facet>
+                    <h:outputText value="#{jelo.id()}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Naziv" />
+                    </f:facet>
+                    <h:outputText value="#{jelo.naziv()}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cijena (€)" />
+                    </f:facet>
+                    <h:outputText value="#{jelo.cijena()}" />
+                </h:column>
+            </h:dataTable>
+        </h:panelGroup>
+
+        <h:outputText value="#{jelovnikPregled.poruka}"
+                      style="color:red; font-weight:bold; font-size:18px; margin-top:10px;"
+                      rendered="#{not empty jelovnikPregled.poruka}" />
+    </ui:define>
+
+</ui:composition>

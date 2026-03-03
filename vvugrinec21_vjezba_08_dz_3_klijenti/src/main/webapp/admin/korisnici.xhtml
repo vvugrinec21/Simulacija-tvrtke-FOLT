@@ -1,0 +1,37 @@
+<ui:composition template="/predlozak.xhtml"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+    <ui:define name="title">Pregled korisnika</ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <h2>Pretraživanje korisnika</h2>
+
+            <h:messages globalOnly="true" style="color:red;" />
+
+            <h:panelGrid columns="2">
+                <h:outputLabel for="ime" value="Ime:" />
+                <h:inputText id="ime" value="#{pregledKorisnika.ime}" />
+
+                <h:outputLabel for="prezime" value="Prezime:" />
+                <h:inputText id="prezime" value="#{pregledKorisnika.prezime}" />
+
+                <h:commandButton value="Pretraži" action="#{pregledKorisnika.pretrazi}">
+                    <f:ajax execute="@form" render="@form"/>
+                </h:commandButton>
+            </h:panelGrid>
+
+            <h:outputText value="#{pregledKorisnika.poruka}" style="color:blue; font-weight:bold;" />
+
+            <h:dataTable value="#{pregledKorisnika.rezultati}" var="k" border="1"
+                         rendered="#{not empty pregledKorisnika.rezultati}">
+                <h:column><f:facet name="header">Korisničko ime</f:facet>#{k.korisnik}</h:column>
+                <h:column><f:facet name="header">Ime</f:facet>#{k.ime}</h:column>
+                <h:column><f:facet name="header">Prezime</f:facet>#{k.prezime}</h:column>
+                <h:column><f:facet name="header">Email</f:facet>#{k.email}</h:column>
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

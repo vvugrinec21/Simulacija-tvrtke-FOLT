@@ -1,0 +1,56 @@
+<ui:composition template="/predlozak.xhtml"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+    <ui:define name="title">Karta pića</ui:define>
+
+    <ui:define name="content">
+        <h:panelGroup rendered="#{!prijavaKorisnika.partnerOdabran}">
+            <h:outputText value="Niste odabrali partnera."
+                          style="color:red; font-weight:bold; font-size:18px;" />
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{prijavaKorisnika.partnerOdabran}">
+            <h2 style="margin-top: 20px; font-size: 24px;">Karta pića</h2>
+
+            <h:dataTable value="#{picaPregled.pica}" var="pice"
+                         border="1"
+                         style="width: 100%; font-size: 20px; border-collapse: collapse; table-layout: auto;"
+                         headerClass="table-header" rowClasses="table-row">
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="ID" />
+                    </f:facet>
+                    <h:outputText value="#{pice.id()}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Naziv" />
+                    </f:facet>
+                    <h:outputText value="#{pice.naziv()}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Količina (L)" />
+                    </f:facet>
+                    <h:outputText value="#{pice.kolicina()}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Cijena (€)" />
+                    </f:facet>
+                    <h:outputText value="#{pice.cijena()}" />
+                </h:column>
+            </h:dataTable>
+        </h:panelGroup>
+
+        <h:outputText value="#{picaPregled.poruka}"
+                      style="color:red; font-weight:bold; font-size:18px; margin-top:10px;"
+                      rendered="#{not empty picaPregled.poruka}" />
+    </ui:define>
+</ui:composition>

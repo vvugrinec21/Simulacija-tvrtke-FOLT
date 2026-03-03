@@ -1,0 +1,96 @@
+<ui:composition template="/predlozak.xhtml"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+    <ui:define name="title">Narudžba</ui:define>
+
+    <ui:define name="content">
+
+        <!-- Ako partner nije odabran -->
+        <h:panelGroup rendered="#{!prijavaKorisnika.partnerOdabran}">
+            <h:outputText value="Niste odabrali partnera." style="color:red; font-weight:bold;" />
+        </h:panelGroup>
+
+        <!-- Glavni sadržaj ako je partner odabran -->
+        <h:panelGroup rendered="#{prijavaKorisnika.partnerOdabran}">
+           <h:form>
+           <h:messages globalOnly="true" layout="table" style="color:red;" />
+           
+    
+           
+    <h2>Upravljanje narudžbom</h2>
+
+    <!-- Gumb za započinjanje nove narudžbe -->
+    <h:commandButton value="Započni novu narudžbu"
+                     action="#{narudzbaPregled.novaNarudzba}"
+                     rendered="#{!narudzbaPregled.aktivan}">
+        <f:ajax render="@form"/>
+    </h:commandButton>
+
+    <!-- Gumb za plaćanje narudžbe -->
+    <h:commandButton value="Plati narudžbu"
+                     action="#{narudzbaPregled.platiNarudzbu}"
+                     rendered="#{narudzbaPregled.aktivan}">
+        <f:ajax render="@form"/>
+    </h:commandButton>
+
+    <!-- Poruka korisniku -->
+    <h:outputText value="#{narudzbaPregled.poruka}" style="color:blue; font-weight:bold;" />
+
+    <!-- Dio koji se prikazuje samo ako postoji aktivna narudžba -->
+    <h:panelGroup rendered="#{narudzbaPregled.aktivan}">
+
+        <!-- Dodavanje jela -->
+        <h3>Dodaj jelo</h3>
+        <h:panelGrid columns="3">
+            <h:selectOneMenu value="#{narudzbaPregled.odabranoJeloId}">
+                <f:selectItems value="#{narudzbaPregled.jelovnik}" var="jelo"
+                               itemValue="#{jelo.id()}" itemLabel="#{jelo.naziv()} (#{jelo.cijena()} €)" />
+            </h:selectOneMenu>
+            <h:inputText value="#{narudzbaPregled.kolicinaJelo}" style="width:50px;">
+                <f:validateLongRange minimum="1" maximum="100"/>
+            </h:inputText>
+            <h:commandButton value="Naruči jelo" action="#{narudzbaPregled.naruciJelo}" />
+
+        </h:panelGrid>
+
+        <!-- Dodavanje pića -->
+        <h3>Dodaj piće</h3>
+        <h:panelGrid columns="3">
+            <h:selectOneMenu value="#{narudzbaPregled.odabranoPiceId}">
+                <f:selectItems value="#{narudzbaPregled.pica}" var="pice"
+                               itemValue="#{pice.id()}" itemLabel="#{pice.naziv()} (#{pice.cijena()} €)" />
+            </h:selectOneMenu>
+            <h:inputText value="#{narudzbaPregled.kolicinaPice}" style="width:50px;">
+                <f:validateLongRange minimum="1" maximum="100"/>
+            </h:inputText>
+            <h:commandButton value="Naruči piće" action="#{narudzbaPregled.naruciPice}">
+                <f:ajax execute="@form" render="@form"/>
+            </h:commandButton>
+        </h:panelGrid>
+
+        <!-- Tablica naručenih jela -->
+        <h3>Naručena jela</h3>
+        <h:dataTable value="#{narudzbaPregled.narucenaJela}" var="jelo" border="1">
+            <h:column><f:facet name="header">ID</f:facet>#{jelo.id()}</h:column>
+            <h:column><f:facet name="header">Količina</f:facet>#{jelo.kolicina()}</h:column>
+            <h:column><f:facet name="header">Cijena</f:facet>#{jelo.cijena()}</h:column>
+            <h:column><f:facet name="header">Iznos</f:facet>#{jelo.kolicina() * jelo.cijena()}</h:column>
+        </h:dataTable>
+
+        <!-- Tablica naručenih pića -->
+        <h3>Naručena pića</h3>
+        <h:dataTable value="#{narudzbaPregled.narucenaPica}" var="pice" border="1">
+            <h:column><f:facet name="header">ID</f:facet>#{pice.id()}</h:column>
+            <h:column><f:facet name="header">Količina</f:facet>#{pice.kolicina()}</h:column>
+            <h:column><f:facet name="header">Cijena</f:facet>#{pice.cijena()}</h:column>
+            <h:column><f:facet name="header">Iznos</f:facet>#{pice.kolicina() * pice.cijena()}</h:column>
+        </h:dataTable>
+
+    </h:panelGroup>
+</h:form>
+
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

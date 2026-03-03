@@ -1,0 +1,66 @@
+<ui:composition template="/predlozak.xhtml"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+    <ui:define name="title">Pregled obračuna</ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="partner" value="Odaberi partnera:" />
+                <h:selectOneMenu id="partner" value="#{pregledObracuna.odabraniPartnerId}">
+                    <f:selectItems value="#{pregledObracuna.sviPartneri}" var="p"
+                                   itemValue="#{p.id}" itemLabel="#{p.naziv}" />
+                </h:selectOneMenu>
+
+                <h:outputLabel for="od" value="Datum od (nije obavezno):" />
+                <h:inputText id="od" value="#{pregledObracuna.datumOd}">
+                    <f:convertDateTime pattern="yyyy-MM-dd'T'HH:mm" />
+                    <f:passThroughAttribute name="type" value="datetime-local" />
+                </h:inputText>
+
+                <h:outputLabel for="do" value="Datum do (nije obavezno):" />
+                <h:inputText id="do" value="#{pregledObracuna.datumDo}">
+                    <f:convertDateTime pattern="yyyy-MM-dd'T'HH:mm" />
+                    <f:passThroughAttribute name="type" value="datetime-local" />
+                </h:inputText>
+
+                <h:outputText />
+                <h:commandButton value="Prikaži obračune" action="#{pregledObracuna.ucitajObracune}" />
+            </h:panelGrid>
+
+            <h:panelGroup rendered="#{not empty pregledObracuna.obracuni}">
+                <h2>Obračuni:</h2>
+                <h:dataTable value="#{pregledObracuna.obracuni}" var="o" border="1">
+                    <h:column>
+                        <f:facet name="header">RB</f:facet>
+                        #{o.rb}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Vrijeme</f:facet>
+                        <h:outputText value="#{o.vrijeme}">
+                            <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Količina</f:facet>
+                        #{o.kolicina}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Cijena</f:facet>
+                        #{o.cijena}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Jelo</f:facet>
+                        #{o.jelo ? 'Da' : 'Ne'}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">ID stavke</f:facet>
+                        #{o.id}
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+</ui:composition>

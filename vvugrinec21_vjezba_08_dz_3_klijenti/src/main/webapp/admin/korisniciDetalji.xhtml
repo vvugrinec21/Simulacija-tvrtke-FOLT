@@ -1,0 +1,35 @@
+<ui:composition template="/predlozak.xhtml"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+    <ui:define name="title">Detalji korisnika</ui:define>
+
+    <ui:define name="content">
+        <h:dataTable value="#{[pregledRestKorisnika.odabraniKorisnik]}" var="k" border="1"
+                     rendered="#{not empty pregledRestKorisnika.odabraniKorisnik}">
+            <h:column>
+                <f:facet name="header">Korisničko ime</f:facet>
+                #{k.korisnik()}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Lozinka</f:facet>
+                #{k.lozinka()}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Ime</f:facet>
+                #{k.ime()}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Prezime</f:facet>
+                #{k.prezime()}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                #{k.email()}
+            </h:column>
+        </h:dataTable>
+
+        <h:link outcome="/admin/korisniciRest.xhtml" value="Natrag na popis" />
+    </ui:define>
+</ui:composition>

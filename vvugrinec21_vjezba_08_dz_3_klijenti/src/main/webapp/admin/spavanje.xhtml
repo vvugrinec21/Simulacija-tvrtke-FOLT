@@ -1,0 +1,37 @@
+<ui:composition template="/predlozak.xhtml"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+    <ui:define name="title">Spavanje sustava</ui:define>
+
+    <ui:define name="content">
+
+        <h:panelGroup rendered="#{!prijavaKorisnika.partnerOdabran}">
+            <h:outputText value="Niste odabrali partnera." style="color:red; font-weight:bold;" />
+        </h:panelGroup>
+
+
+        <h:panelGroup rendered="#{prijavaKorisnika.partnerOdabran}">
+            <h:form>
+                <h2>Aktivacija spavanja</h2>
+
+                <h:messages globalOnly="true" style="color:red;" />
+
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="Vrijeme spavanja (sekundi):" />
+                    <h:inputText value="#{spavanjePregled.trajanje}">
+                        <f:validateLongRange minimum="1" maximum="300" />
+                    </h:inputText>
+
+                    <h:commandButton value="Spavaj"
+                                     action="#{spavanjePregled.aktivirajSpavanje}">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                </h:panelGrid>
+
+                <h:outputText value="#{spavanjePregled.poruka}" style="color:blue; font-weight:bold;" />
+            </h:form>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

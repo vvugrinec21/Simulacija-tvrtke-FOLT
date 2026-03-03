@@ -1,0 +1,32 @@
+docker build -t servis_vvugrinec21 -f Dockerfile .
+
+docker run --env-file hsqldb.env -it -d \
+--network=mreza_vvugrinec21 \
+--ip 20.24.5.30 \
+--name=bp_vvugrinec21_hsql \
+--hostname=bp_vvugrinec21_hsql \
+--mount type=bind,source=/opt/hsql/hsqldb/data,target=/opt/data \
+bp_vvugrinec21_hsql:latest
+
+docker build -t bp_vvugrinec21_h2 -f Dockerfile.h2 .
+
+docker run -it -d \
+--network=mreza_vvugrinec21 \
+--ip 20.24.5.31 \
+--name=bp_vvugrinec21_h2 \
+--hostname=bp_vvugrinec21_h2 \
+--mount type=bind,source=/opt/database,target=/opt/database \
+bp_vvugrinec21_h2:latest
+
+valjda trebe napraviti mkdir /opt/database
+
+docker build -t servis_vvugrinec21 -f Dockerfile .
+
+docker run -it -d \
+--network=mreza_vvugrinec21 \
+--ip 20.24.5.20 \
+--name= servis_vvugrinec21 \
+--hostname= servis_vvugrinec21 \
+servis_vvugrinec21:latest
+
+docker ps

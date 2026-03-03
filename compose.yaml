@@ -1,0 +1,48 @@
+name: vvugrinec21_docker_compose
+
+networks:
+   mreza_vvugrinec21:
+      external: true
+
+volumes:
+   svezak_vvugrinec21:
+      external: true
+
+services:
+   vvugrinec21_vjezba_08_dz_3_tvrtka:
+      build:
+         context: ./vvugrinec21_vjezba_08_dz_3_tvrtka
+      container_name: tvrtka
+      volumes:
+      - svezak_vvugrinec21:/usr/app/podaci
+      working_dir: /usr/app/podaci
+      networks:
+         mreza_vvugrinec21:
+            ipv4_address: 20.24.5.2
+
+   vvugrinec21_vjezba_08_dz_3_partner:
+      build:
+         context: ./vvugrinec21_vjezba_08_dz_3_partner
+      container_name: partner
+      volumes:
+      - svezak_vvugrinec21:/usr/app/podaci
+      working_dir: /usr/app/podaci
+      networks:
+         mreza_vvugrinec21:
+            ipv4_address: 20.24.5.3
+      depends_on:
+      - vvugrinec21_vjezba_08_dz_3_tvrtka
+
+   vvugrinec21_vjezba_08_dz_3_servisi:
+      build:
+         context: ./vvugrinec21_vjezba_08_dz_3_servisi
+      container_name: servisi
+      networks:
+         mreza_vvugrinec21:
+            ipv4_address: 20.24.5.20
+      environment:
+         MP_CONFIG: /opt/payara/microprofile-config.properties
+      depends_on:
+      - vvugrinec21_vjezba_08_dz_3_tvrtka
+      - vvugrinec21_vjezba_08_dz_3_partner
+

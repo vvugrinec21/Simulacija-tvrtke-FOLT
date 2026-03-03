@@ -1,0 +1,133 @@
+<ui:composition template="/predlozak.xhtml"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+    <ui:define name="title">Nadzorna konzola Partner</ui:define>
+
+    <ui:define name="content">
+        <h2>Nadzorna konzola Partner - Upravljanje servisima</h2>
+
+        <h:form>
+            <h:panelGrid columns="2" cellpadding="5">
+
+                <h:outputLabel for="odabraniId" value="Odaberi ID servisa:" />
+                <h:selectOneMenu id="odabraniId" value="#{partnerUpravitelj.odabraniId}">
+                    <f:selectItem itemValue="1" itemLabel="Servis Jela (ID 1)" />
+                    <f:selectItem itemValue="2" itemLabel="Servis Pića (ID 2)" />
+                </h:selectOneMenu>
+
+                <h:commandButton value="Status" action="#{partnerUpravitelj.dohvatiStatus}">
+            <f:ajax execute="@this" render="@none" />
+        </h:commandButton>
+
+                <h:outputText value="" />
+                <h:commandButton value="Pauza"
+                                 action="#{partnerUpravitelj.pauziraj}" />
+
+                <h:outputText value="" />
+                <h:commandButton value="Start"
+                                 action="#{partnerUpravitelj.pokreni}" />
+
+                <h:outputText value="" />
+                <h:commandButton value="Kraj rada"
+                                 action="#{partnerUpravitelj.zavrsi}"
+                                 style="color: red;" />
+            </h:panelGrid>
+
+            <br/>
+						
+				
+            <h:outputText value="#{partnerUpravitelj.statusPoruka}" escape="false" style="font-weight:bold;" />
+        </h:form>
+        
+    
+        
+        
+        
+       <h3>Status rada poslužitelja (uživo)</h3>
+<div>
+    Status: <span id="statusPosluzitelja" class="crveno">Nepoznat</span><br/>
+    Otvorene narudžbe: <span id="brojOtvorenih">-</span><br/>
+    Plaćene narudžbe: <span id="brojPlaceni">-</span><br/>
+</div>
+
+<script type="text/javascript">
+    let ws;
+
+    function poveziWebSocket() {
+        const adresa = "ws://" + window.location.host + "/vvugrinec21_vjezba_08_dz_3_klijenti/ws/partneri";
+        console.log("Povezujem na WebSocket:", adresa);
+        
+        ws = new WebSocket(adresa);
+
+        ws.onmessage = function(evt) {
+        	
+        	console.log("Primljena WS poruka: ", evt.data);
+        	
+            const podaci = evt.data.trim().split(";");
+            if (podaci.length !== 3) {
+                console.error("Neispravan format poruke:", evt.data);
+                return;
+            }
+
+            const status = podaci[0];
+            const brojOtvorenih = podaci[1];
+            const brojPlaceni = podaci[2];
+
+            document.getElementById("statusPosluzitelja").textContent = status;
+            document.getElementById("statusPosluzitelja").className = status === "RADI" ? "zeleno" : "crveno";
+
+            document.getElementById("brojOtvorenih").textContent = brojOtvorenih;
+            document.getElementById("brojPlaceni").textContent = brojPlaceni;
+        };
+      
+        ws.onerror = function() {
+        	
+            document.getElementById("statusPosluzitelja").textContent = "Greška";
+            document.getElementById("statusPosluzitelja").className = "crveno";
+        };
+
+        ws.onclose = function() {
+            document.getElementById("statusPosluzitelja").textContent = "Veza zatvorena";
+            document.getElementById("statusPosluzitelja").className = "crveno";
+        };
+        	
+        
+        
+        
+        
+    }
+    
+    window.addEventListener("load", poveziWebSocket, false);
+</script>
+
+
+
+
+<style>
+    .zeleno { color: green; font-weight: bold; }
+    .crveno { color: red; font-weight: bold; }
+</style>
+
+
+<style>
+    .zeleno {
+        color: green;
+        font-weight: bold;
+    }
+
+    .crveno {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+        
+
+        <style>
+            .zeleno { color: green; font-weight: bold; }
+            .crveno { color: red; font-weight: bold; }
+        </style>
+    </ui:define>
+
+</ui:composition>
